@@ -1,7 +1,22 @@
 import React, { useState } from "react";
 
-const defaultItems = [];
-
+const defaultItems = [
+  "Blank #0",
+  "Blank #1",
+  "Blank #2",
+  "Blank #3",
+  "Blank #4",
+  "Blank #5",
+  "Blank #6",
+  "Blank #7",
+  "Blank #8",
+  "Blank #9",
+  "Blank #10",
+  "Blank #11",
+  "Blank #12",
+  "Blank #13",
+  "Blank #14",
+];
 const FormGroup = ({ label, children }) => {
   return (
     <label className="form-group">
@@ -13,8 +28,8 @@ const FormGroup = ({ label, children }) => {
 
 const ItemsList = ({ items, removeItem }) => {
   return (
-    <div className="list">
-      <ul className="list-group">
+    <div className="list-container">
+      <ul className="list">
         {items.map((item, index) => (
           <li key={(item, index)} className="list-item">
             <span>{item}</span>
@@ -28,6 +43,24 @@ const ItemsList = ({ items, removeItem }) => {
           </li>
         ))}
       </ul>
+    </div>
+  );
+};
+
+const BingoCard = ({ items, seed, width, height }) => {
+  return (
+    <div className="Card">
+      <h1>Bingo Card</h1>
+      <div
+        className="Grid"
+        style={{ gridTemplateColumns: `repeat(${width}, 1fr)` }}
+      >
+        {items.map((item, index) => (
+          <div key={index}>
+            <div>{item}</div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
@@ -73,6 +106,17 @@ function App() {
         </FormGroup>
 
         <ItemsList items={items} removeItem={removeItem} />
+      </div>
+
+            <div className="Cards">
+        { [0, 1].map((seed) =>
+          <BingoCard
+            items={items}
+            seed={seed}
+            width={4}
+            height={3}
+          />
+        ) }
       </div>
     </div>
   );
