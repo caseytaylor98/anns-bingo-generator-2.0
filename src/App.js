@@ -26,7 +26,7 @@ const ItemsList = ({ items, removeItem }) => {
             <button
               className="remove-item-button"
               type="button"
-              onClick={() => removeItem(item)}
+              onClick={() => removeItem(index)}
             >
               &times;
             </button>
@@ -84,8 +84,8 @@ function App() {
     console.log("items:", items);
   }
 
-  function removeItem(item) {
-    setItems([...items].filter((x) => x !== item));
+  function removeItem(index) {
+    setItems(items.splice(index, 1));
   }
 
   function generateCard() {
@@ -105,7 +105,7 @@ function App() {
             value={input}
             onChange={handleChange}
           />
-          <button onClick={addItem}>
+          <button onClick={addItem} className="add-item-button">
             Add
           </button>
         </FormGroup>

@@ -175,7 +175,11 @@ button {
   border: 1px solid rgba(0, 0, 0, 0.125);
 }
 
-button:active {
+.create-card-button:active {
+  box-shadow: 2px 2px 2px 1px #e6ddf8;
+}
+
+add-item-button:active {
   box-shadow: 2px 2px 2px 1px #e6ddf8;
 }
 
