@@ -1,5 +1,10 @@
 import React, { useState } from "react";
 
+const WIDTH = 4;
+const HEIGHT = 3;
+
+const MAX_ITEMS = WIDTH * HEIGHT;
+
 const defaultItems = [
   "Blank #0",
   "Blank #1",
@@ -68,18 +73,27 @@ const BingoCard = ({ items, seed, width, height }) => {
 function App() {
   const [items, setItems] = useState(defaultItems);
   const [input, setInput] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   function handleChange(e) {
     console.log(e.target.value);
-    if (e.target.value != "") {
-      // TODO: don't allow duplicates - breaks remove logic
-      setInput(e.target.value);
-    }
+    setInput(e.target.value);
   }
 
-  function handleAdd() {
-    const newItems = [...items, input];
-    setItems(newItems);
+  function addItem() {
+    // TODO: don't allow duplicates?
+    if (input == "") {
+      setErrorMessage("Field cannot be empty.");
+      return;
+    } else if (items.length >= MAX_ITEMS) {
+      setErrorMessage("Maximum number of items reached.");
+      return;
+    } else {
+      const newItems = [...items, input];
+      setItems(newItems);
+    }
+
+    setErrorMessage("");
     console.log("items:", items);
   }
 
@@ -99,24 +113,22 @@ function App() {
             defaultValue=""
             onChange={handleChange}
           />
-          <button onClick={handleAdd} className="add-item-button">
-            {" "}
-            Add{" "}
+          <button onClick={addItem} className="add-item-button">
+            Add
           </button>
         </FormGroup>
+
+        {errorMessage !== "" ? (
+          <div className="error-message"> {errorMessage}</div>
+        ) : null}
 
         <ItemsList items={items} removeItem={removeItem} />
       </div>
 
-            <div className="Cards">
-        { [0, 1].map((seed) =>
-          <BingoCard
-            items={items}
-            seed={seed}
-            width={4}
-            height={3}
-          />
-        ) }
+      <div className="Cards">
+        {[0, 1].map((seed) => (
+          <BingoCard items={items} seed={seed} width={4} height={3} />
+        ))}
       </div>
     </div>
   );
