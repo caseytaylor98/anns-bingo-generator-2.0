@@ -5,23 +5,8 @@ const HEIGHT = 3;
 
 const MAX_ITEMS = WIDTH * HEIGHT;
 
-const defaultItems = [
-  "Blank #0",
-  "Blank #1",
-  "Blank #2",
-  "Blank #3",
-  "Blank #4",
-  "Blank #5",
-  "Blank #6",
-  "Blank #7",
-  "Blank #8",
-  "Blank #9",
-  "Blank #10",
-  "Blank #11",
-  "Blank #12",
-  "Blank #13",
-  "Blank #14",
-];
+const defaultItems = []
+
 const FormGroup = ({ label, children }) => {
   return (
     <label className="form-group">
@@ -74,6 +59,7 @@ function App() {
   const [items, setItems] = useState(defaultItems);
   const [input, setInput] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [showCard, setShowCard] = useState(false)
 
   function handleChange(e) {
     console.log(e.target.value);
@@ -94,11 +80,16 @@ function App() {
     }
 
     setErrorMessage("");
+    setInput("");
     console.log("items:", items);
   }
 
   function removeItem(item) {
     setItems([...items].filter((x) => x !== item));
+  }
+
+  function generateCard() {
+    setShowCard(true)
   }
 
   return (
@@ -111,9 +102,10 @@ function App() {
             type="text"
             className="add-item-input"
             defaultValue=""
+            value={input}
             onChange={handleChange}
           />
-          <button onClick={addItem} className="add-item-button">
+          <button onClick={addItem}>
             Add
           </button>
         </FormGroup>
@@ -123,13 +115,19 @@ function App() {
         ) : null}
 
         <ItemsList items={items} removeItem={removeItem} />
+
+        <button onClick={generateCard} className="create-card-button"> Generate Card </button>
       </div>
 
-      <div className="Cards">
-        {[0, 1].map((seed) => (
-          <BingoCard items={items} seed={seed} width={4} height={3} />
-        ))}
-      </div>
+      {/* TODO: randomize card generation */}
+      {showCard ? 
+       <div className="Cards">
+       {[0].map((seed) => (
+         <BingoCard items={items} seed={seed} width={4} height={3} />
+       ))}
+     </div>
+     : null}
+     
     </div>
   );
 }

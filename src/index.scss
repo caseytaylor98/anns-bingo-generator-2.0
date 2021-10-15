@@ -164,7 +164,7 @@ input {
   }
 }
 
-.add-item-button {
+button {
   background-color: #cbb8f7;
   border: none;
   padding: 10px;
@@ -173,14 +173,18 @@ input {
   width: 75px;
   cursor: pointer;
   border: 1px solid rgba(0, 0, 0, 0.125);
-  
 }
 
-.add-item-button:active {
+button:active {
   box-shadow: 2px 2px 2px 1px #e6ddf8;
 }
 
 .error-message {
   color: red;
   margin-top: 15px;
+}
+
+.create-card-button {
+  width:100%;
+  margin-left: 0px;
 }
