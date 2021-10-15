@@ -15,8 +15,8 @@ const ItemsList = ({ items, removeItem }) => {
   return (
     <div className="list">
       <ul className="list-group">
-        {items.map((item) => (
-          <li key={item} className="list-group-item">
+        {items.map((item,index) => (
+          <li key={item,index} className="list-item">
             <span>{item}</span>
             <button
               className="remove-item-button"
@@ -38,11 +38,13 @@ function App() {
 
   function handleChange(e) {
     console.log(e.target.value);
-    setInput(e.target.value);
+    if (e.target.value != '') {
+      setInput(e.target.value);
+    }
   }
 
   function handleAdd() {
-    const newItems = items.concat({input});
+    const newItems = [...items, input];
     setItems(newItems);
     console.log("items:", items)
   }
@@ -54,12 +56,18 @@ function App() {
   return (
     <div className="App">
       <div className="App-header"> Ann's Bingo Game </div>
+
+
+      <div className="Items">
       <FormGroup label="Add Item">
-        <input type="text" defaultValue="" onChange={handleChange}/>
-        <button onClick={handleAdd}> Add </button>
+        <input type="text" className="add-item-input" defaultValue="" onChange={handleChange}/>
+        <button onClick={handleAdd} className="add-item-button"> Add </button>
       </FormGroup>
 
-      {/* <ItemsList items={items} removeItem={removeItem} /> */}
+      <ItemsList items={items} removeItem={removeItem} />
+      </div>
+
+    
     </div>
   );
 }
